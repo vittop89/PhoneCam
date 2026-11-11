@@ -1,0 +1,118 @@
+{
+  "language": {
+    "label": "زبان",
+    "italian": "Italiano (Italian/it)",
+    "english": "English (English/en)",
+    "persian": "فارسی (Persian/fa)"
+  },
+  "sections": {
+    "device": "تلفن",
+    "camera": "دوربین",
+    "zoomLight": "بزرگ‌نمایی و نور",
+    "image": "تصویر"
+  },
+  "device": {
+    "none": "تلفنی متصل نیست",
+    "testFile": "آزمایش (فایل H.264)"
+  },
+  "camera": {
+    "lens": "لنز",
+    "resolution": "وضوح تصویر",
+    "fps": "فریم بر ثانیه",
+    "quality": "کیفیت",
+    "qualityLow": "پایین",
+    "qualityMedium": "متوسط",
+    "qualityHigh": "بالا",
+    "qualityMaximum": "بیشترین",
+    "autofocusHint": "فوکوس به‌صورت خودکار و پیوسته تنظیم می‌شود.",
+    "panHint": "برای بزرگ‌نمایی یا کوچک‌نمایی اسکرول کنید؛ برای جابه‌جایی، تصویر بزرگ‌شده را بکشید.",
+    "facingBack": "پشتی",
+    "facingFront": "جلو",
+    "facingExternal": "خارجی",
+    "restoreOne": "نمایش دوبارهٔ لنز حذف‌شده",
+    "restoreMany": "نمایش دوبارهٔ {count} لنز حذف‌شده",
+    "zoomRange": " · بزرگ‌نمایی {min} تا {max} برابر",
+    "cameraLabel": "{facing} · {megapixels} مگاپیکسل{zoom} (id {id})",
+    "sizeLabel": "{width}×{height} ({aspect}){name}",
+    "format4k": "4K",
+    "format2k": "2K",
+    "formatFullHd": "Full HD",
+    "formatHd": "HD"
+  },
+  "controls": {
+    "torch": "چراغ‌قوه",
+    "zoomIn": "بزرگ‌نمایی",
+    "zoomOut": "کوچک‌نمایی",
+    "zoomInTitle": "بزرگ‌نمایی (کلید +)",
+    "zoomOutTitle": "کوچک‌نمایی (کلید −)",
+    "zoomReset": "بازنشانی بزرگ‌نمایی",
+    "zoomResetTitle": "بازنشانی بزرگ‌نمایی به ۱×",
+    "rotate": "چرخاندن",
+    "rotateBy": "چرخش {degrees} درجه",
+    "rotateTitle": "چرخش ۹۰ درجه (کلید R)",
+    "mirror": "آینه‌ای",
+    "mirrorTitle": "آینه‌ای کردن (کلید M)",
+    "resizePanel": "تغییر اندازهٔ نوار کناری",
+    "fit": "جاسازی",
+    "fill": "پرکردن",
+    "fitTitle": "جاسازی یا پرکردن (کلید A)",
+    "fullscreen": "تمام‌صفحه",
+    "exitFullscreen": "خروج از تمام‌صفحه",
+    "fullscreenTitle": "تمام‌صفحه (F11 یا دوبار کلیک روی تصویر)",
+    "hidePanel": "پنهان‌کردن پنل",
+    "hidePanelTitle": "پنهان‌کردن پنل (کلید P)",
+    "showPanel": "نمایش پنل",
+    "showPanelTitle": "نمایش پنل (کلید P)"
+  },
+  "status": {
+    "initializing": "در حال راه‌اندازی…",
+    "missingTools": "adb.exe یا scrcpy-server در پوشهٔ tools پیدا نشد",
+    "startingAdb": "در حال راه‌اندازی adb…",
+    "waitingForPermission": "درخواست اشکال‌زدایی USB را در تلفن با زدن «اجازه دادن» تأیید کنید",
+    "deviceNotReady": "تلفن هنوز آماده نیست…",
+    "connectPhone": "تلفن را با کابل USB وصل کنید (اشکال‌زدایی USB باید روشن باشد)",
+    "preparingPhone": "در حال آماده‌سازی تلفن…",
+    "startingCamera": "در حال راه‌اندازی دوربین…",
+    "waitingForFrames": "در انتظار دریافت تصویر…",
+    "live": "در حال پخش",
+    "restartingCamera": "در حال راه‌اندازی دوبارهٔ دوربین…",
+    "retry": "{error} (تلاش دوباره تا {seconds} ثانیهٔ دیگر)",
+    "decoderTest": "آزمایش رمزگشایی"
+  },
+  "messages": {
+    "noWebCodecs": "این نسخهٔ WebView2 نمی‌تواند ویدئو را رمزگشایی کند (WebCodecs در دسترس نیست)",
+    "cameraBusy": "دوربین تلفن در برنامهٔ دیگری (دوربین، Camo و مانند آن) در حال استفاده است؛ آن برنامه را ببندید",
+    "cameraDisabled": "دوربین تلفن غیرفعال است؛ دسترسی دوربین را در تنظیمات حریم خصوصی بررسی کنید",
+    "cameraInterrupted": "کار دوربین تلفن متوقف شد",
+    "settingsRejected": "این لنز این تنظیمات را نمی‌پذیرد",
+    "incompatibleServer": "نسخهٔ سرور دوربین سازگار نیست",
+    "encoderRejected": "تلفن با این تنظیمات نمی‌تواند پخش کند؛ وضوح یا کیفیت پایین‌تری انتخاب کنید",
+    "noCameraAvailable": "دوربین در دسترس نیست (به Android 12 یا جدیدتر نیاز است)",
+    "noCameraFrame": "تصویری از لنز دریافت نشد",
+    "serverCopyFailed": "کپی سرور روی تلفن ناموفق بود: {detail}",
+    "adbForwardFailed": "اجرای adb forward ناموفق بود: {detail}",
+    "cameraServerExited": "سرور دوربین بلافاصله بسته شد",
+    "cameraDidNotOpen": "تلفن دوربین را باز نکرد",
+    "phoneRejectedConfig": "تلفن پیکربندی دوربین را نپذیرفت",
+    "unexpectedCodec": "کُدک ویدئویی غیرمنتظره ({detail})",
+    "invalidVideoPacket": "بستهٔ ویدئویی نامعتبر است",
+    "noUsableLens": "هیچ لنز قابل‌استفاده‌ای در تلفن نیست",
+    "lensTryingDefaultSize": "لنز {cameraId} با وضوح {size} پخش نمی‌کند؛ وضوح {defaultSize} امتحان می‌شود",
+    "lensTryingFallback": "لنز {cameraId} پخش نمی‌کند؛ لنز {fallbackId} امتحان می‌شود",
+    "lensExcluded": "لنز {cameraId} فقط در برنامهٔ دوربین تلفن کار می‌کند و از فهرست حذف شد",
+    "languageSaveFailed": "زبان برای این نشست عوض شد، اما ذخیرهٔ ترجیح ناموفق بود: {detail}",
+    "localeLoadFailed": "بارگیری زبان انتخاب‌شده ناموفق بود: {detail}"
+  },
+  "native": {
+    "prepareFailed": "PhoneCam نتوانست فایل‌های خود را در {folder} آماده کند.\n\n{error}",
+    "webViewRuntimeRequired": "Microsoft Edge WebView2 Runtime لازم است.\n\n{error}",
+    "missingPayload": "فایل اجرایی شامل adb یا صفحهٔ برنامه نیست"
+  },
+  "placeholder": {
+    "connectPhone": "تلفن را با کابل USB وصل کنید"
+  },
+  "stats": {
+    "fps": "{count} فریم‌برثانیه",
+    "dropped": " · {count} فریم حذف شد"
+  }
+}

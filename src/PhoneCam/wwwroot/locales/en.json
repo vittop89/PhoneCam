@@ -1,0 +1,118 @@
+{
+  "language": {
+    "label": "Language",
+    "italian": "Italiano (Italian/it)",
+    "english": "English (English/en)",
+    "persian": "فارسی (Persian/fa)"
+  },
+  "sections": {
+    "device": "Phone",
+    "camera": "Camera",
+    "zoomLight": "Zoom and light",
+    "image": "Image"
+  },
+  "device": {
+    "none": "No phone connected",
+    "testFile": "Test (H.264 file)"
+  },
+  "camera": {
+    "lens": "Lens",
+    "resolution": "Resolution",
+    "fps": "FPS",
+    "quality": "Quality",
+    "qualityLow": "Low",
+    "qualityMedium": "Medium",
+    "qualityHigh": "High",
+    "qualityMaximum": "Maximum",
+    "autofocusHint": "Focus is automatic and continuous.",
+    "panHint": "Scroll to zoom; drag the zoomed image to pan.",
+    "facingBack": "Rear",
+    "facingFront": "Front",
+    "facingExternal": "External",
+    "restoreOne": "Show excluded lens again",
+    "restoreMany": "Show {count} excluded lenses again",
+    "zoomRange": " · zoom {min}–{max}×",
+    "cameraLabel": "{facing} · {megapixels} MP{zoom} (ID {id})",
+    "sizeLabel": "{width}×{height} ({aspect}){name}",
+    "format4k": "4K",
+    "format2k": "2K",
+    "formatFullHd": "Full HD",
+    "formatHd": "HD"
+  },
+  "controls": {
+    "torch": "Torch",
+    "zoomIn": "Zoom in",
+    "zoomOut": "Zoom out",
+    "zoomInTitle": "Zoom in (key +)",
+    "zoomOutTitle": "Zoom out (key −)",
+    "zoomReset": "Reset zoom",
+    "zoomResetTitle": "Reset zoom to 1×",
+    "rotate": "Rotate",
+    "rotateBy": "Rotate {degrees}°",
+    "rotateTitle": "Rotate by 90° (key R)",
+    "mirror": "Mirror",
+    "mirrorTitle": "Mirror (key M)",
+    "resizePanel": "Resize sidebar",
+    "fit": "Fit",
+    "fill": "Fill",
+    "fitTitle": "Fit or fill (key A)",
+    "fullscreen": "Full screen",
+    "exitFullscreen": "Exit full screen",
+    "fullscreenTitle": "Full screen (F11 or double-click the image)",
+    "hidePanel": "Hide panel",
+    "hidePanelTitle": "Hide panel (key P)",
+    "showPanel": "Show panel",
+    "showPanelTitle": "Show panel (key P)"
+  },
+  "status": {
+    "initializing": "Starting…",
+    "missingTools": "adb.exe or scrcpy-server is missing from the tools folder",
+    "startingAdb": "Starting adb…",
+    "waitingForPermission": "Tap “Allow” on the phone's USB debugging prompt",
+    "deviceNotReady": "Phone is not ready yet…",
+    "connectPhone": "Connect the phone with a USB cable (USB debugging must be on)",
+    "preparingPhone": "Preparing the phone…",
+    "startingCamera": "Starting the camera…",
+    "waitingForFrames": "Waiting for video…",
+    "live": "Live",
+    "restartingCamera": "Restarting the camera…",
+    "retry": "{error} (retrying in {seconds} s)",
+    "decoderTest": "Decoder test"
+  },
+  "messages": {
+    "noWebCodecs": "This version of WebView2 cannot decode video (WebCodecs is unavailable)",
+    "cameraBusy": "The phone's camera is in use by another app (Camera, Camo, etc.); close it",
+    "cameraDisabled": "The phone's camera is disabled; check camera access in privacy settings",
+    "cameraInterrupted": "The phone's camera was interrupted",
+    "settingsRejected": "This lens does not accept these settings",
+    "incompatibleServer": "Incompatible camera server version",
+    "encoderRejected": "The phone cannot stream with these settings; try a lower resolution or quality",
+    "noCameraAvailable": "No accessible camera (Android 12 or later is required)",
+    "noCameraFrame": "No image from the camera lens",
+    "serverCopyFailed": "Could not copy the server to the phone: {detail}",
+    "adbForwardFailed": "adb forward failed: {detail}",
+    "cameraServerExited": "The camera server exited immediately",
+    "cameraDidNotOpen": "The phone did not open the camera",
+    "phoneRejectedConfig": "The phone rejected the camera configuration",
+    "unexpectedCodec": "Unexpected video codec ({detail})",
+    "invalidVideoPacket": "Invalid video packet",
+    "noUsableLens": "No usable phone camera lens",
+    "lensTryingDefaultSize": "Lens {cameraId} cannot stream at {size}; trying {defaultSize}",
+    "lensTryingFallback": "Lens {cameraId} cannot stream; trying lens {fallbackId}",
+    "lensExcluded": "Lens {cameraId} only works in the phone's Camera app and was removed from the list",
+    "languageSaveFailed": "The language changed for this session, but the preference could not be saved: {detail}",
+    "localeLoadFailed": "Could not load the selected language: {detail}"
+  },
+  "native": {
+    "prepareFailed": "PhoneCam could not prepare its files in {folder}.\n\n{error}",
+    "webViewRuntimeRequired": "The Microsoft Edge WebView2 Runtime is required.\n\n{error}",
+    "missingPayload": "The executable does not contain adb or the app page"
+  },
+  "placeholder": {
+    "connectPhone": "Connect the phone with a USB cable"
+  },
+  "stats": {
+    "fps": "{count} fps",
+    "dropped": " · {count} dropped"
+  }
+}

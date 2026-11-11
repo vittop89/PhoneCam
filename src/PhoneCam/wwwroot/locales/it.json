@@ -1,0 +1,118 @@
+{
+  "language": {
+    "label": "Lingua",
+    "italian": "Italiano (Italian/it)",
+    "english": "English (English/en)",
+    "persian": "فارسی (Persian/fa)"
+  },
+  "sections": {
+    "device": "Telefono",
+    "camera": "Fotocamera",
+    "zoomLight": "Zoom e luce",
+    "image": "Immagine"
+  },
+  "device": {
+    "none": "Nessun telefono",
+    "testFile": "Test (file H.264)"
+  },
+  "camera": {
+    "lens": "Obiettivo",
+    "resolution": "Risoluzione",
+    "fps": "FPS",
+    "quality": "Qualità",
+    "qualityLow": "Bassa",
+    "qualityMedium": "Media",
+    "qualityHigh": "Alta",
+    "qualityMaximum": "Massima",
+    "autofocusHint": "La messa a fuoco è automatica e continua.",
+    "panHint": "Scorri per ingrandire o ridurre; trascina l'immagine ingrandita per spostarla.",
+    "facingBack": "Posteriore",
+    "facingFront": "Anteriore",
+    "facingExternal": "Esterna",
+    "restoreOne": "Mostra di nuovo l'obiettivo escluso",
+    "restoreMany": "Mostra di nuovo i {count} obiettivi esclusi",
+    "zoomRange": " · zoom {min}–{max}×",
+    "cameraLabel": "{facing} · {megapixels} MP{zoom} (id {id})",
+    "sizeLabel": "{width}×{height} ({aspect}){name}",
+    "format4k": "4K",
+    "format2k": "2K",
+    "formatFullHd": "Full HD",
+    "formatHd": "HD"
+  },
+  "controls": {
+    "torch": "Torcia",
+    "zoomIn": "Aumenta zoom",
+    "zoomOut": "Riduci zoom",
+    "zoomInTitle": "Aumenta zoom (tasto +)",
+    "zoomOutTitle": "Riduci zoom (tasto −)",
+    "zoomReset": "Reimposta zoom",
+    "zoomResetTitle": "Reimposta lo zoom a 1×",
+    "rotate": "Ruota",
+    "rotateBy": "Ruota {degrees}°",
+    "rotateTitle": "Ruota di 90° (tasto R)",
+    "mirror": "Specchia",
+    "mirrorTitle": "Specchia (tasto M)",
+    "resizePanel": "Ridimensiona il pannello",
+    "fit": "Adatta",
+    "fill": "Riempi",
+    "fitTitle": "Adatta o riempi (tasto A)",
+    "fullscreen": "Schermo intero",
+    "exitFullscreen": "Esci da schermo intero",
+    "fullscreenTitle": "Schermo intero (F11 o doppio clic sull'immagine)",
+    "hidePanel": "Nascondi pannello",
+    "hidePanelTitle": "Nascondi pannello (tasto P)",
+    "showPanel": "Mostra pannello",
+    "showPanelTitle": "Mostra pannello (tasto P)"
+  },
+  "status": {
+    "initializing": "Avvio…",
+    "missingTools": "Mancano adb.exe o scrcpy-server nella cartella tools",
+    "startingAdb": "Avvio adb…",
+    "waitingForPermission": "Sul telefono tocca «Consenti» nella richiesta di debug USB",
+    "deviceNotReady": "Telefono non ancora pronto…",
+    "connectPhone": "Collega il telefono con il cavo USB (debug USB attivo)",
+    "preparingPhone": "Preparo il telefono…",
+    "startingCamera": "Avvio fotocamera…",
+    "waitingForFrames": "Attendo le immagini…",
+    "live": "In diretta",
+    "restartingCamera": "Riavvio fotocamera…",
+    "retry": "{error} (nuovo tentativo tra {seconds} s)",
+    "decoderTest": "Test di decodifica"
+  },
+  "messages": {
+    "noWebCodecs": "Questa versione di WebView2 non decodifica video (WebCodecs assente)",
+    "cameraBusy": "La fotocamera è occupata da un'altra app sul telefono (Fotocamera, Camo…): chiudila",
+    "cameraDisabled": "Fotocamera disattivata sul telefono: controlla l'accesso alla fotocamera nelle impostazioni privacy",
+    "cameraInterrupted": "La fotocamera del telefono si è interrotta",
+    "settingsRejected": "Questo obiettivo non accetta queste impostazioni",
+    "incompatibleServer": "Versione del server fotocamera non compatibile",
+    "encoderRejected": "Il telefono non riesce a trasmettere con queste impostazioni: prova una risoluzione o una qualità più bassa",
+    "noCameraAvailable": "Nessuna fotocamera accessibile (serve Android 12 o superiore)",
+    "noCameraFrame": "Nessuna immagine dall'obiettivo",
+    "serverCopyFailed": "Copia del server sul telefono non riuscita: {detail}",
+    "adbForwardFailed": "adb forward non riuscito: {detail}",
+    "cameraServerExited": "Il server fotocamera si è chiuso subito",
+    "cameraDidNotOpen": "Il telefono non ha aperto la fotocamera",
+    "phoneRejectedConfig": "Il telefono ha rifiutato la configurazione della fotocamera",
+    "unexpectedCodec": "Codec video inatteso ({detail})",
+    "invalidVideoPacket": "Pacchetto video non valido",
+    "noUsableLens": "Nessun obiettivo del telefono è utilizzabile",
+    "lensTryingDefaultSize": "L'obiettivo id {cameraId} non trasmette a {size}: provo {defaultSize}",
+    "lensTryingFallback": "L'obiettivo id {cameraId} non trasmette: provo l'obiettivo id {fallbackId}",
+    "lensExcluded": "L'obiettivo id {cameraId} funziona solo nell'app Fotocamera del telefono: l'ho tolto dall'elenco",
+    "languageSaveFailed": "Lingua cambiata per questa sessione, ma non è stato possibile salvare la preferenza: {detail}",
+    "localeLoadFailed": "Impossibile caricare la lingua selezionata: {detail}"
+  },
+  "native": {
+    "prepareFailed": "PhoneCam non riesce a preparare i suoi file in {folder}.\n\n{error}",
+    "webViewRuntimeRequired": "Serve Microsoft Edge WebView2 Runtime.\n\n{error}",
+    "missingPayload": "Il file eseguibile non contiene adb né la pagina dell'app"
+  },
+  "placeholder": {
+    "connectPhone": "Collega il telefono con il cavo USB"
+  },
+  "stats": {
+    "fps": "{count} fps",
+    "dropped": " · scartati {count}"
+  }
+}

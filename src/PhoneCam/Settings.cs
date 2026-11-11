@@ -4,6 +4,7 @@ namespace PhoneCam;
 
 sealed class Settings
 {
+    public string Language { get; set; } = "en";
     public string? CameraId { get; set; }
     public string? Size { get; set; }
     public int Fps { get; set; } = 30;
@@ -12,6 +13,7 @@ sealed class Settings
     public bool Mirror { get; set; }
     public string Fit { get; set; } = "contain";
     public bool PanelCollapsed { get; set; }
+    public int PanelWidth { get; set; } = 340;
     /// <summary>"serial/cameraId" of lenses the phone refuses to external capture sessions.</summary>
     public List<string> UnusableCameras { get; set; } = [];
 
@@ -36,11 +38,31 @@ sealed class Settings
     {
         try
         {
-            Directory.CreateDirectory(Folder);
-            File.WriteAllText(FilePath, JsonSerializer.Serialize(this, new JsonSerializerOptions { WriteIndented = true }));
+            SaveCore();
         }
         catch
         {
         }
+    }
+
+    public bool TrySave(out Exception? error)
+    {
+        try
+        {
+            SaveCore();
+            error = null;
+            return true;
+        }
+        catch (Exception ex) when (ex is IOException or UnauthorizedAccessException)
+        {
+            error = ex;
+            return false;
+        }
+    }
+
+    void SaveCore()
+    {
+        Directory.CreateDirectory(Folder);
+        File.WriteAllText(FilePath, JsonSerializer.Serialize(this, new JsonSerializerOptions { WriteIndented = true }));
     }
 }

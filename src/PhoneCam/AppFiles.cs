@@ -57,7 +57,7 @@ static class AppFiles
     {
         var names = assembly.GetManifestResourceNames().Where(n => n.StartsWith(ResourcePrefix, StringComparison.Ordinal)).ToList();
         if (names.Count == 0)
-            throw new InvalidOperationException("Il file eseguibile non contiene adb né la pagina dell'app");
+            throw new InvalidOperationException("errors.missingPayload");
 
         // Unpack into a private folder first, so a crash or a second copy never sees half the files.
         string staging = $"{target}.tmp-{Environment.ProcessId}";

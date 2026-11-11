@@ -6,13 +6,17 @@ static class Program
     static void Main(string[] args)
     {
         ApplicationConfiguration.Initialize();
+        string language = Settings.Load().Language;
         try
         {
             AppFiles.Prepare();
         }
         catch (Exception ex)
         {
-            MessageBox.Show($"PhoneCam non riesce a preparare i suoi file in {Settings.Folder}.\n\n{ex.Message}",
+            string error = ex.Message == "errors.missingPayload"
+                ? UiLocale.Get(language, "native.missingPayload")
+                : ex.Message;
+            MessageBox.Show(UiLocale.Get(language, "native.prepareFailed", ("folder", Settings.Folder), ("error", error)),
                 "PhoneCam", MessageBoxButtons.OK, MessageBoxIcon.Error);
             return;
         }

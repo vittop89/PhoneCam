@@ -1,5 +1,5 @@
 <!doctype html>
-<html lang="it">
+<html lang="en" dir="ltr">
 <head>
 <meta charset="utf-8">
 <title>PhoneCam</title>
@@ -10,65 +10,78 @@
   <header class="brand">
     <h1>PhoneCam</h1>
     <span id="dot" class="dot"></span>
-    <button id="hidePanel" class="icon" title="Nascondi pannello (tasto P)" aria-label="Nascondi pannello" aria-expanded="true">
+    <button id="hidePanel" class="icon" aria-label="" data-i18n-title="controls.hidePanelTitle" data-i18n-aria-label="controls.hidePanel" aria-expanded="true">
       <svg viewBox="0 0 24 24" width="16" height="16" aria-hidden="true"><path d="M15 6l-6 6 6 6" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg>
     </button>
   </header>
-  <p id="status" class="status">Avvio…</p>
+  <p id="status" class="status" data-i18n="status.initializing"></p>
+  <label class="language">
+    <span data-i18n="language.label"></span>
+    <select id="language" aria-label="" data-i18n-aria-label="language.label">
+      <option value="en" data-i18n="language.english"></option>
+      <option value="it" data-i18n="language.italian"></option>
+      <option value="fa" data-i18n="language.persian"></option>
+    </select>
+  </label>
 
   <section class="group">
-    <h2>Telefono</h2>
-    <p id="device" class="device">Nessun telefono</p>
+    <h2 data-i18n="sections.device"></h2>
+    <p id="device" class="device"></p>
   </section>
 
   <section class="group">
-    <h2>Fotocamera</h2>
-    <label>Obiettivo<select id="camera" disabled></select></label>
+    <h2 data-i18n="sections.camera"></h2>
+    <label><span data-i18n="camera.lens"></span><select id="camera" disabled></select></label>
     <button id="restoreCameras" class="link" hidden></button>
-    <label>Risoluzione<select id="size" disabled></select></label>
+    <label><span data-i18n="camera.resolution"></span><select id="size" disabled></select></label>
     <div class="pair">
-      <label>FPS<select id="fps" disabled></select></label>
-      <label>Qualità<select id="quality">
-        <option value="4000000">Bassa</option>
-        <option value="8000000">Media</option>
-        <option value="16000000">Alta</option>
-        <option value="32000000">Massima</option>
+      <label><span data-i18n="camera.fps"></span><select id="fps" disabled></select></label>
+      <label><span data-i18n="camera.quality"></span><select id="quality">
+        <option value="4000000" data-i18n="camera.qualityLow"></option>
+        <option value="8000000" data-i18n="camera.qualityMedium"></option>
+        <option value="16000000" data-i18n="camera.qualityHigh"></option>
+        <option value="32000000" data-i18n="camera.qualityMaximum"></option>
       </select></label>
     </div>
-    <p class="hint">La messa a fuoco è automatica e continua.</p>
+    <p class="hint" data-i18n="camera.autofocusHint"></p>
   </section>
 
   <section class="group">
-    <h2>Zoom e luce</h2>
+    <h2 data-i18n="sections.zoomLight"></h2>
     <div class="pair">
-      <button id="zoomOut" title="Riduci zoom (tasto −)">−</button>
+      <button id="zoomOut" aria-label="" data-i18n-title="controls.zoomOutTitle" data-i18n-aria-label="controls.zoomOut">−</button>
       <span id="zoomValue" class="zoom">1×</span>
-      <button id="zoomIn" title="Aumenta zoom (tasto +)">+</button>
+      <button id="zoomIn" aria-label="" data-i18n-title="controls.zoomInTitle" data-i18n-aria-label="controls.zoomIn">+</button>
+      <button id="zoomReset" aria-label="" data-i18n-title="controls.zoomResetTitle" data-i18n-aria-label="controls.zoomReset">1×</button>
     </div>
-    <label class="switch"><input type="checkbox" id="torch"><span>Torcia</span></label>
+    <p class="hint" data-i18n="camera.panHint"></p>
+    <label class="switch"><input type="checkbox" id="torch"><span data-i18n="controls.torch"></span></label>
   </section>
 
   <section class="group">
-    <h2>Immagine</h2>
+    <h2 data-i18n="sections.image"></h2>
     <div class="pair">
-      <button id="rotate" title="Ruota di 90° (tasto R)">Ruota</button>
-      <button id="mirror" title="Specchia (tasto M)" aria-pressed="false">Specchia</button>
-      <button id="fit" title="Adatta o riempi (tasto A)">Riempi</button>
+      <button id="rotate" data-i18n-title="controls.rotateTitle"></button>
+      <button id="mirror" data-i18n="controls.mirror" data-i18n-title="controls.mirrorTitle" aria-pressed="false"></button>
+      <button id="fit" data-i18n-title="controls.fitTitle"></button>
     </div>
-    <button id="fullscreen" class="primary" title="Schermo intero (F11 o doppio clic sull'immagine)">Schermo intero</button>
+    <button id="fullscreen" class="primary" data-i18n="controls.fullscreen" data-i18n-title="controls.fullscreenTitle"></button>
   </section>
 
   <footer id="stats" class="stats"></footer>
+  <div id="resizePanel" class="resize-panel" role="separator" aria-orientation="vertical"
+    aria-label="" data-i18n-aria-label="controls.resizePanel" aria-valuemin="340" aria-valuemax="600"
+    aria-valuenow="340" tabindex="0"></div>
 </aside>
 
 <main id="stage">
   <canvas id="video"></canvas>
-  <button id="showPanel" class="icon show-panel" title="Mostra pannello (tasto P)" aria-label="Mostra pannello" hidden>
+  <button id="showPanel" class="icon show-panel" aria-label="" data-i18n-title="controls.showPanelTitle" data-i18n-aria-label="controls.showPanel" hidden>
     <svg viewBox="0 0 24 24" width="18" height="18" aria-hidden="true"><rect x="3" y="4" width="18" height="16" rx="2" fill="none" stroke="currentColor" stroke-width="2"/><path d="M9 4v16" stroke="currentColor" stroke-width="2"/></svg>
   </button>
   <div id="notice" class="notice" role="status" hidden></div>
   <div id="placeholder" class="placeholder">
-    <p id="placeholderText">Collega il telefono con il cavo USB</p>
+    <p id="placeholderText" data-i18n="placeholder.connectPhone"></p>
   </div>
 </main>
 

@@ -14,7 +14,7 @@
     <Authors>vittop89</Authors>
     <Description>Shows an Android phone camera on Windows over USB, for projectors and large screens.</Description>
     <Copyright>Copyright (c) 2026 vittop89</Copyright>
-    <!-- The UI is web-based and Italian; skip the dozens of WinForms/.NET satellite languages in the release build. -->
+    <!-- The UI locales are embedded as JSON; skip the WinForms/.NET satellite languages in the release build. -->
     <SatelliteResourceLanguages>it</SatelliteResourceLanguages>
   </PropertyGroup>
 

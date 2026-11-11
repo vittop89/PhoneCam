@@ -4,7 +4,7 @@ using System.Net.Sockets;
 
 namespace PhoneCam;
 
-sealed record StreamOptions(string CameraId, string Size, int Fps, int BitRate, bool Torch, double Zoom);
+sealed record StreamOptions(string CameraId, string Size, int Fps, int BitRate, bool Torch);
 
 sealed record VideoPacket(byte[] Data, long Pts, bool KeyFrame, bool HasConfig);
 
@@ -19,8 +19,6 @@ sealed class CameraSession(Adb adb, string serial) : IDisposable
 
     const byte ControlResetVideo = 17;
     const byte ControlSetTorch = 18;
-    const byte ControlZoomIn = 19;
-    const byte ControlZoomOut = 20;
 
     readonly CancellationTokenSource cts = new();
     readonly object sendLock = new();
@@ -43,7 +41,7 @@ sealed class CameraSession(Adb adb, string serial) : IDisposable
     {
         var (exitCode, output) = await adb.RunAsync($"-s {serial} push \"{localJar}\" {DeviceJar}", 30000);
         if (exitCode != 0)
-            throw new InvalidOperationException("Copia del server sul telefono non riuscita: " + output.Trim());
+            throw new InvalidOperationException("errors.serverCopyFailed:" + output.Trim());
     }
 
     public static async Task<List<CameraInfo>> ListCamerasAsync(Adb adb, string serial)
@@ -55,7 +53,7 @@ sealed class CameraSession(Adb adb, string serial) : IDisposable
             30000);
         var cameras = CameraInfo.Parse(output);
         if (cameras.Count == 0)
-            throw new InvalidOperationException(FirstErrorLine(output.Split('\n')) ?? "Nessuna fotocamera accessibile (serve Android 12 o superiore)");
+            throw new InvalidOperationException(FirstErrorLine(output.Split('\n')) ?? "errors.noCameraAvailable");
         return cameras;
     }
 
@@ -64,7 +62,7 @@ sealed class CameraSession(Adb adb, string serial) : IDisposable
         int scid = Random.Shared.Next(0, int.MaxValue);
         var (exitCode, output) = await adb.RunAsync($"-s {serial} forward tcp:0 localabstract:scrcpy_{scid:x8}");
         if (exitCode != 0 || !int.TryParse(output.Trim(), out forwardPort))
-            throw new InvalidOperationException("adb forward non riuscito: " + output.Trim());
+            throw new InvalidOperationException("errors.adbForwardFailed:" + output.Trim());
 
         string command = string.Join(' ',
             $"CLASSPATH={DeviceJar}", "app_process", "/", "com.genymobile.scrcpy.Server", ServerVersion,
@@ -73,7 +71,7 @@ sealed class CameraSession(Adb adb, string serial) : IDisposable
             "video_source=camera", $"camera_id={options.CameraId}", $"camera_size={options.Size}",
             $"camera_fps={options.Fps}", $"video_bit_rate={options.BitRate}",
             $"camera_torch={(options.Torch ? "true" : "false")}",
-            $"camera_zoom={options.Zoom.ToString("0.###", System.Globalization.CultureInfo.InvariantCulture)}",
+            "camera_zoom=1",
             "send_device_meta=false", "clipboard_autosync=false", "power_on=false", "cleanup=true");
         serverProcess = adb.StartShell(serial, command, OnServerLine);
 
@@ -84,10 +82,6 @@ sealed class CameraSession(Adb adb, string serial) : IDisposable
         _ = Task.Run(() => ReadVideoAsync(videoClient.GetStream()));
         _ = Task.Run(() => DrainControlAsync(controlClient.GetStream()));
     }
-
-    public void ZoomIn() => SendControl(ControlZoomIn);
-
-    public void ZoomOut() => SendControl(ControlZoomOut);
 
     public void SetTorch(bool on) => SendControl(ControlSetTorch, on ? (byte)1 : (byte)0);
 
@@ -117,7 +111,7 @@ sealed class CameraSession(Adb adb, string serial) : IDisposable
             if (serverProcess is { HasExited: true })
             {
                 serverProcess.WaitForExit(); // flushes the last output lines into serverLines
-                throw new InvalidOperationException(LastServerError() ?? "Il server fotocamera si è chiuso subito");
+                throw new InvalidOperationException(LastServerError() ?? "errors.cameraServerExited");
             }
             var client = new TcpClient { NoDelay = true };
             try
@@ -135,7 +129,7 @@ sealed class CameraSession(Adb adb, string serial) : IDisposable
             client.Dispose();
             await Task.Delay(100, ct);
         }
-        throw new TimeoutException(LastServerError() ?? "Il telefono non ha aperto la fotocamera");
+        throw new TimeoutException(LastServerError() ?? "errors.cameraDidNotOpen");
     }
 
     async Task ReadVideoAsync(NetworkStream stream)
@@ -146,9 +140,9 @@ sealed class CameraSession(Adb adb, string serial) : IDisposable
             await stream.ReadExactlyAsync(header, 0, 4, cts.Token);
             int codec = BinaryPrimitives.ReadInt32BigEndian(header);
             if (codec is 0 or 1)
-                throw new InvalidOperationException(LastServerError() ?? "Il telefono ha rifiutato la configurazione della fotocamera");
+                throw new InvalidOperationException(LastServerError() ?? "errors.phoneRejectedConfig");
             if (codec != CodecH264)
-                throw new InvalidOperationException($"Codec video inatteso (0x{codec:x8})");
+                throw new InvalidOperationException($"errors.unexpectedCodec:0x{codec:x8}");
 
             byte[]? config = null;
             while (true)
@@ -165,7 +159,7 @@ sealed class CameraSession(Adb adb, string serial) : IDisposable
                 long ptsAndFlags = BinaryPrimitives.ReadInt64BigEndian(header);
                 int size = BinaryPrimitives.ReadInt32BigEndian(header.AsSpan(8));
                 if (size is < 0 or > 64 * 1024 * 1024)
-                    throw new InvalidDataException("Pacchetto video non valido");
+                    throw new InvalidDataException("errors.invalidVideoPacket");
                 var data = new byte[size];
                 await stream.ReadExactlyAsync(data, 0, size, cts.Token);
 
@@ -242,21 +236,39 @@ sealed class CameraSession(Adb adb, string serial) : IDisposable
     }
 
     /// <summary>Turns a raw server failure into a sentence a user can act on; the raw text stays in the log.</summary>
-    public static string FriendlyError(string raw)
+    public static (string? Key, string? Detail) FriendlyError(string raw)
     {
         if (raw.Contains("CAMERA_IN_USE") || raw.Contains("Higher-priority client") || raw.Contains("MAX_CAMERAS_IN_USE"))
-            return "La fotocamera è occupata da un'altra app sul telefono (Fotocamera, Camo…): chiudila";
+            return ("messages.cameraBusy", null);
         if (raw.Contains("CAMERA_DISABLED"))
-            return "Fotocamera disattivata sul telefono: controlla l'accesso alla fotocamera nelle impostazioni privacy";
+            return ("messages.cameraDisabled", null);
         if (raw.Contains("CAMERA_DISCONNECTED") || raw.Contains("CAMERA_ERROR"))
-            return "La fotocamera del telefono si è interrotta";
+            return ("messages.cameraInterrupted", null);
         if (raw.Contains("Camera configuration error"))
-            return "Questo obiettivo non accetta queste impostazioni";
+            return ("messages.settingsRejected", null);
         if (raw.Contains("does not match the client"))
-            return "Versione del server fotocamera non compatibile";
+            return ("messages.incompatibleServer", null);
         if (raw.Contains("Video encoding error") || raw.Contains("MediaCodec") || raw.Contains("encoder"))
-            return "Il telefono non riesce a trasmettere con queste impostazioni: prova una risoluzione o una qualità più bassa";
-        return raw;
+            return ("messages.encoderRejected", null);
+        if (raw.StartsWith("errors.serverCopyFailed:", StringComparison.Ordinal))
+            return ("messages.serverCopyFailed", raw["errors.serverCopyFailed:".Length..]);
+        if (raw.StartsWith("errors.adbForwardFailed:", StringComparison.Ordinal))
+            return ("messages.adbForwardFailed", raw["errors.adbForwardFailed:".Length..]);
+        if (raw.StartsWith("errors.unexpectedCodec:", StringComparison.Ordinal))
+            return ("messages.unexpectedCodec", raw["errors.unexpectedCodec:".Length..]);
+        if (raw.StartsWith("errors.", StringComparison.Ordinal))
+            return raw switch
+            {
+                "errors.noCameraAvailable" => ("messages.noCameraAvailable", null),
+                "errors.cameraServerExited" => ("messages.cameraServerExited", null),
+                "errors.cameraDidNotOpen" => ("messages.cameraDidNotOpen", null),
+                "errors.phoneRejectedConfig" => ("messages.phoneRejectedConfig", null),
+                "errors.invalidVideoPacket" => ("messages.invalidVideoPacket", null),
+                "errors.noUsableLens" => ("messages.noUsableLens", null),
+                "errors.noCameraFrame" => ("messages.noCameraFrame", null),
+                _ => (null, raw),
+            };
+        return (null, raw);
     }
 
     static string? FirstErrorLine(IEnumerable<string> lines)
